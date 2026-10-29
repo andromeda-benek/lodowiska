@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interaktywna mapa lodowisk w Polsce z informacjami o sezonie, wyposażeniu i zarządcy.">
+  <title>Lodowiska w Polsce — interaktywna mapa</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css">
+  <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="table.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">GDZIE NA HOKEJ?</p>
+      <h1>Lodowiska w Polsce</h1>
+      <p class="intro">190 lodowisk i rolkowisk z całej Polski. Sprawdź lokalizację, sezon, wymiary tafli, zaplecze i zarządcę. <strong>Wersja testowa: dane nie są zweryfikowane.</strong></p>
+    </div>
+    <div class="counter" aria-live="polite"><strong id="visible-count">—</strong><span>obiektów na mapie</span></div>
+  </header>
+
+  <main class="layout">
+    <aside class="filters" aria-label="Filtry lodowisk">
+      <div class="filters-heading"><h2>Filtry</h2><button id="reset" type="button">Wyczyść</button></div>
+      <label>Wyszukaj<input id="query" type="search" placeholder="Nazwa, miasto, zarządca…"></label>
+      <label>Województwo<select id="wojewodztwo"><option value="">Wszystkie</option></select></label>
+      <button id="apply-filters" type="button">Wyszukaj</button>
+      <p class="data-note"><strong>O danych:</strong> baza zawiera przegląd AI lodowisk w Polsce na podstawie publicznie dostępnych danych.</p>
+    </aside>
+
+    <section class="map-wrap" aria-label="Mapa lodowisk">
+      <div id="loading" class="loading">Wczytywanie danych…</div>
+      <p id="offline-map-note" class="offline-map-note" hidden>Podkład mapowy wymaga internetu. Markery, tabela i filtry nadal działają offline.</p>
+      <div id="map"></div>
+      <div id="error" class="error" hidden></div>
+    </section>
+  </main>
+
+  <section class="results" aria-labelledby="results-title">
+    <div class="results-heading">
+      <div><p class="eyebrow">LISTA OBIEKTÓW</p><h2 id="results-title">Lodowiska w tabeli</h2></div>
+      <p><strong id="table-count">—</strong> wyników</p>
+    </div>
+    <p class="results-help">Tabela i mapa korzystają z tych samych filtrów. Wybierz „Szczegóły”, aby otworzyć pełne informacje o obiekcie.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Nazwa</th><th>Adres</th><th>Sezon</th><th>Wymiary</th><th>Pełnowymiarowe</th><th>Zarządca</th><th>Rolkowisko latem</th><th></th></tr></thead>
+        <tbody id="results-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <aside id="details" class="details" aria-labelledby="details-title" aria-hidden="true">
+    <button id="close-details" class="close" type="button" aria-label="Zamknij szczegóły">×</button>
+    <div id="details-content"></div>
+  </aside>
+  <div id="backdrop" class="backdrop" hidden></div>
+
+  <footer><span>Dane mapowe © OpenStreetMap contributors</span><span>Dane obiektów: oficjalne strony zarządców, samorządów i operatorów</span></footer>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/leaflet/leaflet.markercluster.js"></script>
+  <script defer src="app.js"></script>
+</body>
+</html>
